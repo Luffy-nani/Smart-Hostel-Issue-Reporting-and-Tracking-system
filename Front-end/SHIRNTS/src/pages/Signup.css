@@ -1,0 +1,123 @@
+/* PAGE BACKGROUND */
+.signup-page {
+  min-height: calc(100vh - 70px);
+  width: 100%;
+  background: linear-gradient(
+    180deg,
+    #2f5f4a 0%,
+    #3f6f52 50%,
+    #2b5444 100%
+  );
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.signup-card {
+  width: 900px;
+  min-height: 520px;
+  background: #ffffff;
+  border-radius: 16px;
+  display: flex;
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.3);
+  overflow: hidden;
+}
+
+/* LEFT SIDE */
+.signup-left {
+  flex: 1;
+  padding: 48px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.signup-left h2 {
+  font-size: 30px;
+  font-weight: 600;
+  color: #111827;
+}
+
+.subtitle {
+  color: #6b7280;
+  margin-bottom: 4px;
+}
+
+/* TOGGLE */
+.role-toggle {
+  display: flex;
+  gap: 10px;
+  margin: 10px 0 14px;
+}
+
+.role-toggle button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  background: #e5e7eb;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.role-toggle .active {
+  background: #2f6d62;
+  color: white;
+}
+
+/* INPUTS */
+.signup-left input {
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition: all 0.2s ease;
+}
+
+.signup-left input:focus {
+  outline: none;
+  border-color: #2f6d62;
+  box-shadow: 0 0 0 3px rgba(47, 109, 98, 0.2);
+}
+
+/* SIGNUP BUTTON */
+.signup-btn {
+  margin-top: 14px;
+  padding: 12px;
+  border: none;
+  border-radius: 8px;
+  background: #2f6d62;
+  color: white;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+}
+
+.signup-btn:hover {
+  background: #264e45;
+}
+
+/* RIGHT SIDE */
+.signup-right {
+  flex: 1;
+  background: linear-gradient(135deg, #0b0b0b, #161616);
+  color: white;
+  padding: 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.signup-right h3 {
+  font-size: 26px;
+  font-weight: 600;
+  margin-bottom: 12px;
+}
+
+.signup-right p {
+  font-size: 15px;
+  opacity: 0.85;
+  line-height: 1.6;
+}

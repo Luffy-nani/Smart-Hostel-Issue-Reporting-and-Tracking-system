@@ -1,0 +1,39 @@
+.footer {
+  background: #0b0b0b;
+  padding: 3.1rem 1.5rem;
+  text-align: center;
+  color: #888;
+}
+
+.footer-content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.8rem;
+}
+
+.footer-content a {
+  color: #aaa;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.footer-content a:hover {
+  color: #4caf50;
+}
+
+.brand {
+  color: #4caf50;
+  font-weight: 600;
+}
+
+.divider {
+  color: #444;
+}
+
+copyright {
+  font-size: 0.8rem;
+  color: #666;
+}
