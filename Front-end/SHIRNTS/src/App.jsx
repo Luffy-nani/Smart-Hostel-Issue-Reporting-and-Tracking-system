@@ -7,7 +7,7 @@ import RaiseComplaint from "./pages/RaiseComplaint";
 function App() {
   return(
     <>
-      <Home/>
+      <Dashboard/>
     </>
   );
 

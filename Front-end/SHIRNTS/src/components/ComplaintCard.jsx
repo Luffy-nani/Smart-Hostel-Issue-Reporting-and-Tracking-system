@@ -6,7 +6,7 @@ const ComplaintCard = () => {
       {/* Page Header */}
       <div className="page-header">
         <h1>Raise a Complaint</h1>
-        <p>Report an issue in your hostel. Track its status in real time.</p>
+        <p>Report an issue in your hostel. Track its status in real ztime.</p>
         <div className="header-accent"></div>
       </div>
 
