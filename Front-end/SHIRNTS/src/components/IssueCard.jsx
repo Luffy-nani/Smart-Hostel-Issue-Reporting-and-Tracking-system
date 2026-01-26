@@ -1,5 +1,5 @@
 
-import "./Issues.css";
+import "./Issues.css";  
 const IssueCard = ({ issue }) => {
   if (!issue) return null;
 
