@@ -1,0 +1,299 @@
+/* ============================= */
+/* ANNOUNCEMENTS PAGE */
+/* ============================= */
+
+.announcements-page {
+  min-height: calc(100vh - 70px);
+  padding: 40px;
+  padding-top: 40px; /* space for fixed navbar */
+
+  background: linear-gradient(
+    135deg,
+    #f0fdf4 0%,
+    #f5fbf7 30%,
+    #e8f5ff 70%,
+    #f0f9ff 100%
+  );
+}
+
+/* ============================= */
+/* PAGE HEADER */
+/* ============================= */
+
+.page-header {
+  margin-bottom: 40px;
+  animation: fadeInDown 0.6s ease-out;
+}
+
+.page-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1a472a;
+  margin-bottom: 8px;
+  letter-spacing: -0.5px;
+}
+
+.page-header p {
+  font-size: 16px;
+  color: #5a6c57;
+}
+
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================= */
+/* ANNOUNCEMENTS CONTAINER */
+/* ============================= */
+
+.announcements-container {
+  max-width: 900px;
+  margin: 0 auto;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ============================= */
+/* ANNOUNCEMENT CARD */
+/* ============================= */
+
+.announcement-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08),
+              0 2px 4px rgba(0, 0, 0, 0.04);
+  border: 1px solid rgba(50, 210, 122, 0.1);
+  transition: all 0.3s ease;
+  overflow: hidden;
+  border-left: 4px solid #32d27a;
+}
+
+.announcement-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.12),
+              0 4px 8px rgba(50, 210, 122, 0.15);
+  border-left-width: 6px;
+}
+
+/* ============================= */
+/* ANNOUNCEMENT CONTENT */
+/* ============================= */
+
+.announcement-content {
+  padding: 24px;
+}
+
+/* ============================= */
+/* ANNOUNCEMENT HEADER */
+/* ============================= */
+
+.announcement-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.announcement-title {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1a472a;
+  margin: 0;
+  line-height: 1.4;
+  flex: 1;
+}
+
+/* ============================= */
+/* CATEGORY TAG */
+/* ============================= */
+
+.category-tag {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  white-space: nowrap;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.category-tag.maintenance {
+  background: linear-gradient(135deg, #a78bfa, #8b5cf6);
+  color: #ffffff;
+}
+
+.category-tag.technology {
+  background: linear-gradient(135deg, #60a5fa, #3b82f6);
+  color: #ffffff;
+}
+
+.category-tag.event {
+  background: linear-gradient(135deg, #f472b6, #ec4899);
+  color: #ffffff;
+}
+
+.category-tag.facilities {
+  background: linear-gradient(135deg, #4ade80, #22c55e);
+  color: #ffffff;
+}
+
+.category-tag.safety {
+  background: linear-gradient(135deg, #f87171, #ef4444);
+  color: #ffffff;
+}
+
+.category-tag.water {
+  background: linear-gradient(135deg, #38bdf8, #0ea5e9);
+  color: #ffffff;
+}
+
+.category-tag.electrical {
+  background: linear-gradient(135deg, #facc15, #eab308);
+  color: #111111;
+}
+
+.category-tag.plumbing {
+  background: linear-gradient(135deg, #2dd4bf, #14b8a6);
+  color: #ffffff;
+}
+
+.category-tag.internet {
+  background: linear-gradient(135deg, #818cf8, #6366f1);
+  color: #ffffff;
+}
+
+.category-tag.cleaning {
+  background: linear-gradient(135deg, #fb923c, #f97316);
+  color: #ffffff;
+}
+
+.category-tag.security {
+  background: linear-gradient(135deg, #dc2626, #b91c1c);
+  color: #ffffff;
+}
+
+.category-tag.other {
+  background: linear-gradient(135deg, #94a3b8, #64748b);
+  color: #ffffff;
+}
+
+/* ============================= */
+/* ANNOUNCEMENT DESCRIPTION */
+/* ============================= */
+
+.announcement-description {
+  font-size: 15px;
+  line-height: 1.7;
+  color: #374151;
+  margin: 0 0 20px 0;
+}
+
+/* ============================= */
+/* ANNOUNCEMENT FOOTER */
+/* ============================= */
+
+.announcement-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px solid rgba(50, 210, 122, 0.1);
+  font-size: 14px;
+  color: #5a6c57;
+  font-weight: 500;
+}
+
+.announcement-author,
+.announcement-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+/* ============================= */
+/* EMPTY STATE */
+/* ============================= */
+
+.no-announcements {
+  text-align: center;
+  padding: 80px 20px;
+  color: #5a6c57;
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+}
+
+.no-announcements-icon {
+  font-size: 64px;
+  margin-bottom: 20px;
+  opacity: 0.3;
+}
+
+.no-announcements h3 {
+  font-size: 24px;
+  font-weight: 700;
+  color: #1a472a;
+  margin-bottom: 8px;
+}
+
+.no-announcements p {
+  font-size: 16px;
+  color: #5a6c57;
+}
+
+/* ============================= */
+/* RESPONSIVE */
+/* ============================= */
+
+@media (max-width: 768px) {
+  .announcements-page {
+    padding: 20px;
+    padding-top: 100px;
+  }
+
+  .announcements-container {
+    max-width: 100%;
+  }
+
+  .announcement-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: flex-start;
+  }
+
+  .announcement-title {
+    font-size: 18px;
+  }
+
+  .announcement-content {
+    padding: 20px;
+  }
+
+  .announcement-footer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+}

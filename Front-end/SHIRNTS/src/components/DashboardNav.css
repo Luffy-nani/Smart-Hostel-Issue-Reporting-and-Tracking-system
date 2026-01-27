@@ -1,12 +1,15 @@
 /* Navbar container */
 .navbar {
-    display: flex;
-    align-items: center;   /* vertically center everything */
-    justify-content: space-between;
-    background-color: #111;
-    padding: 15px 50px;    /* taller navbar */
-    font-family: 'Arial', sans-serif;
-    color: #fff;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #111;
+  padding: 15px 50px;
+  color: #fff;
 }
 
 /* Logo */
