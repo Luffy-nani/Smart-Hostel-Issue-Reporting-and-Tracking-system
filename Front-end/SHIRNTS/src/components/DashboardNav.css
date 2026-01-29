@@ -18,6 +18,7 @@
     font-weight: bold;
     color: #4ade80;
     white-space: nowrap;
+    cursor: pointer;
 }
 
 /* Menu as list */

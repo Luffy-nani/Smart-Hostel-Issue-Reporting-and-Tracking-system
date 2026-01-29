@@ -1,16 +1,19 @@
 import "./DashboardNav.css";
+import { useNavigate } from "react-router-dom";
 
 export default function Navbar() {
+
+  const navigate=useNavigate();
   return (
     <nav className="navbar">
       <div className="navbar-left">
-        <div className="logo">Smart Hostel</div>
+        <div onClick={()=>navigate("/dashboard")} className="logo">Smart Hostel</div>
       </div>
 
       <ul className="navbar-menu">
-        <li>My Complaints</li>
-        <li>Raise Complaint</li>
-        <li>Announcements</li>
+        <li onClick={()=>navigate("/dashboard/complaints")}>My Complaints</li>
+        <li onClick={()=>navigate("/dashboard/raise")} >Raise Complaint</li>
+        <li onClick={()=>navigate("/dashboard/announcements")}>Announcements</li>
       </ul>
 
       <div className="profile-wrapper">
