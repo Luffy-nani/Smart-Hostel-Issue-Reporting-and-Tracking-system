@@ -17,7 +17,7 @@ function Login() {
     // STUDENT LOGIN
     if (role === "student") {
       if (email === "student@gmail.com" && password === "1234") {
-        setError("");
+        setError(""); 
         navigate("/dashboard");
       } else {
         setError("Invalid student email or password");
