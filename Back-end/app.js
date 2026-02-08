@@ -20,6 +20,8 @@ mongoose
 
 //Routes
 app.use("/api/auth", require(`./routes/authRoutes`));
+app.use("/api/dashboard", require("./routes/dashboardRoutes"));
+
 
 app.listen(PORT,()=>
 {
