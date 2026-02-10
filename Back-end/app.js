@@ -21,6 +21,8 @@ mongoose
 //Routes
 app.use("/api/auth", require(`./routes/authRoutes`));
 app.use("/api/dashboard", require("./routes/dashboardRoutes"));
+app.use("/api/mycomplaints", require("./routes/complaintRoutes"));
+app.use("/api/announcements",require("./routes/announcementRoutes"));
 
 
 app.listen(PORT,()=>
