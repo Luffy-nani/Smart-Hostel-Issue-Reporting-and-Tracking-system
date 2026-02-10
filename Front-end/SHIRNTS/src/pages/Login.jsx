@@ -5,33 +5,52 @@ import { useNavigate } from "react-router-dom";
 
 function Login() {
   const [role, setRole] = useState("student");
-
   const [email, setEmail] = useState("");
   const [adminId, setAdminId] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
-  const handleLogin = () => {
-    // STUDENT LOGIN
-    if (role === "student") {
-      if (email === "student@gmail.com" && password === "1234") {
-        setError(""); 
-        navigate("/dashboard");
-      } else {
-        setError("Invalid student email or password");
-      }
-    }
+  const handleLogin = async () => {
+    setError("");
+    setLoading(true);
 
-    // ADMIN LOGIN
-    if (role === "admin") {
-      if (adminId === "admin01" && password === "admin123") {
-        setError("");
-        navigate("/dashboard");
-      } else {
-        setError("Invalid admin credentials");
+    // Prepare payload based on role
+    const payload =
+      role === "student"
+        ? { role, email, password }
+        : { role, email, adminId, password };
+
+    try {
+      const res = await fetch("http://localhost:3000/api/auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify(payload)
+      });
+
+      const data = await res.json();
+
+      if (!res.ok) {
+        setError(data.message || "Login failed");
+        setLoading(false);
+        return;
       }
+
+      // Save token and user info to localStorage
+      localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
+
+      // Navigate to dashboard
+      navigate("/dashboard");
+    } catch (err) {
+      console.error(err);
+      setError("Backend not reachable. Make sure the server is running on port 3000");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -53,6 +72,9 @@ function Login() {
                 onClick={() => {
                   setRole("student");
                   setError("");
+                  setEmail("");
+                  setAdminId("");
+                  setPassword("");
                 }}
               >
                 Student
@@ -63,6 +85,9 @@ function Login() {
                 onClick={() => {
                   setRole("admin");
                   setError("");
+                  setEmail("");
+                  setAdminId("");
+                  setPassword("");
                 }}
               >
                 Admin
@@ -96,6 +121,13 @@ function Login() {
                 />
 
                 <input
+                  type="email"
+                  placeholder="Admin Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                />
+
+                <input
                   type="password"
                   placeholder="Password"
                   value={password}
@@ -106,9 +138,23 @@ function Login() {
 
             {error && <p className="error-text">{error}</p>}
 
-            <button onClick={handleLogin} className="login-btn">
-              Login
+            <button 
+              onClick={handleLogin} 
+              className="login-btn"
+              disabled={loading}
+            >
+              {loading ? "Logging in..." : "Login"}
             </button>
+
+            <p style={{ marginTop: "15px", textAlign: "center" }}>
+              Don't have an account?{" "}
+              <span
+                style={{ color: "#4CAF50", cursor: "pointer" }}
+                onClick={() => navigate("/signup")}
+              >
+                Sign Up
+              </span>
+            </p>
           </div>
 
           {/* RIGHT SECTION */}
