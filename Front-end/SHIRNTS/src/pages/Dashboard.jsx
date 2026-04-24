@@ -1,34 +1,76 @@
+import { useState, useEffect } from "react";
 import DashboardNav from "../components/DashboardNav";
 import SearchFilter from "../components/SearchFilter";
 import IssueGrid from "../components/IssueGrid";
+import { dashboardAPI } from "../utils/api";
 
 const Dashboard = () => {
-  const complaints = [
-  {
-    id: 1,
-    title: "Water leakage in bathroom",
-    category: "Plumbing",
-    priority: "High",
-    room: "B-203",
-    description: "Water leaking continuously from the tap.",
-    images: ["https://via.placeholder.com/300"]
-  },
-  {
-    id: 2,
-    title: "WiFi not working",
-    category: "Internet",
-    priority: "Medium",
-    room: "C-110",
-    description: "WiFi disconnects after 10 PM.",
-    images: []
-  }
-];
+  const [complaints, setComplaints] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchComplaints = async () => {
+      try {
+        const data = await dashboardAPI.getAllComplaints();
+        setComplaints(data);
+        setFiltered(data);
+      } catch (err) {
+        console.error("Failed to fetch complaints:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchComplaints();
+  }, []);
+
+  const handleSearch = (term) => {
+    apply(term, null);
+  };
+
+  const handleFilter = ({ type, status }) => {
+    apply(null, { type, status });
+  };
+
+  // keep latest search+filter in refs to combine them
+  const [search, setSearch] = useState("");
+  const [filterVal, setFilterVal] = useState({ type: "", status: "" });
+
+  const apply = (newSearch, newFilter) => {
+    const s = newSearch !== null ? newSearch : search;
+    const f = newFilter !== null ? newFilter : filterVal;
+
+    if (newSearch !== null) setSearch(newSearch);
+    if (newFilter !== null) setFilterVal(newFilter);
+
+    let result = [...complaints];
+
+    if (s) {
+      result = result.filter((c) =>
+        c.title.toLowerCase().includes(s.toLowerCase())
+      );
+    }
+    if (f.type) {
+      result = result.filter(
+        (c) => c.category.toLowerCase() === f.type.toLowerCase()
+      );
+    }
+    if (f.status) {
+      result = result.filter(
+        (c) => c.status.toLowerCase() === f.status.toLowerCase()
+      );
+    }
+
+    setFiltered(result);
+  };
+
+  if (loading) return <p>Loading complaints...</p>;
 
   return (
     <>
       <DashboardNav />
-      <SearchFilter />
-      <IssueGrid complaints={complaints} />
+      <SearchFilter onSearch={handleSearch} onFilter={handleFilter} />
+      <IssueGrid complaints={filtered} />
     </>
   );
 };

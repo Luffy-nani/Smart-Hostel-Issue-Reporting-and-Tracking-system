@@ -1,69 +1,95 @@
+import { useState, useEffect } from "react";
 import "./MyComplaints.css";
 import SearchFilter from "./SearchFilter";
 import "./SearchFilter.css";
-import DashboardNav from "./DashboardNav"; // ← ADDED THIS LINE
+import DashboardNav from "./DashboardNav";
+import { complaintAPI } from "../utils/api";
 
 const MyComplaints = () => {
-  const userComplaints = [
-    {
-      id: 1,
-      title: "Water leakage in bathroom",
-      category: "Plumbing",
-      priority: "high",
-      status: "in-progress",
-      room: "B-203",
-    },
-    {
-      id: 2,
-      title: "WiFi not working",
-      category: "Internet",
-      priority: "medium",
-      status: "pending",
-      room: "C-110",
-    },
-    {
-      id: 3,
-      title: "AC not cooling",
-      category: "Electrical",
-      priority: "high",
-      status: "resolved",
-      room: "B-203",
+  const [complaints, setComplaints] = useState([]);
+  const [filtered, setFiltered] = useState([]);
+  const [search, setSearch] = useState("");
+  const [filterVal, setFilterVal] = useState({ type: "", status: "" });
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchComplaints = async () => {
+      try {
+        const data = await complaintAPI.getMyComplaints();
+        setComplaints(data);
+        setFiltered(data);
+      } catch (err) {
+        console.error("Failed to fetch complaints:", err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchComplaints();
+  }, []);
+
+  const apply = (newSearch, newFilter) => {
+    const s = newSearch !== null ? newSearch : search;
+    const f = newFilter !== null ? newFilter : filterVal;
+
+    if (newSearch !== null) setSearch(newSearch);
+    if (newFilter !== null) setFilterVal(newFilter);
+
+    let result = [...complaints];
+
+    if (s) {
+      result = result.filter((c) =>
+        c.title.toLowerCase().includes(s.toLowerCase())
+      );
     }
-  ];
+    if (f.type) {
+      result = result.filter(
+        (c) => c.category.toLowerCase() === f.type.toLowerCase()
+      );
+    }
+    if (f.status) {
+      result = result.filter(
+        (c) => c.status.toLowerCase() === f.status.toLowerCase()
+      );
+    }
+
+    setFiltered(result);
+  };
 
   return (
     <>
-      {/* ← ADDED THIS NAVBAR */}
       <DashboardNav />
-      
+
       <div className="my-complaints-page">
-        {/* PAGE HEADER */}
         <div className="page-header">
           <h1>My Complaints</h1>
           <p>Track and manage all your reported issues</p>
         </div>
-        
+
         <div className="Se">
-          <SearchFilter/>
+          <SearchFilter
+            onSearch={(val) => apply(val, null)}
+            onFilter={(val) => apply(null, val)}
+          />
         </div>
-        
-        {/* COMPLAINTS GRID */}
+
         <div className="my-complaints-grid">
-          {userComplaints.length > 0 ? (
-            userComplaints.map((complaint) => (
-              <div key={complaint.id} className="my-complaint-card">
+          {loading ? (
+            <p>Loading...</p>
+          ) : filtered.length > 0 ? (
+            filtered.map((complaint) => (
+              <div key={complaint._id} className="my-complaint-card">
                 <div className="complaint-header">
                   <h3 className="complaint-title">{complaint.title}</h3>
-                  <span className={`status-badge ${complaint.status}`}>
-                    {complaint.status.replace("-", " ")}
+                  <span className={`status-badge ${complaint.status.toLowerCase().replace(" ", "-")}`}>
+                    {complaint.status}
                   </span>
                 </div>
 
                 <p className="complaint-meta">
-                  {complaint.category} • Room {complaint.room}
+                  {complaint.category} • {complaint.location}
                 </p>
 
-                <span className={`priority-badge ${complaint.priority}`}>
+                <span className={`priority-badge ${complaint.priority.toLowerCase()}`}>
                   {complaint.priority} Priority
                 </span>
               </div>

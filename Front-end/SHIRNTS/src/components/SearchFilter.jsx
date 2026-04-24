@@ -7,14 +7,14 @@ const SearchFilter = ({ onSearch, onFilter }) => {
 
   const handleSearchChange = (e) => {
     setSearchTerm(e.target.value);
-    onSearch(e.target.value);
+    onSearch && onSearch(e.target.value);
   };
 
   const handleFilterChange = (e) => {
     const { name, value } = e.target;
     const updatedFilter = { ...filter, [name]: value };
     setFilter(updatedFilter);
-    onFilter(updatedFilter);
+    onFilter && onFilter(updatedFilter);
   };
 
   return (
@@ -35,9 +35,11 @@ const SearchFilter = ({ onSearch, onFilter }) => {
           className="filter-select"
         >
           <option value="">All Types</option>
-          <option value="maintenance">Maintenance</option>
-          <option value="cleaning">Cleaning</option>
-          <option value="other">Other</option>
+          <option value="Water">Water</option>
+          <option value="Electricity">Electricity</option>
+          <option value="Internet">Internet</option>
+          <option value="Cleaning">Cleaning</option>
+          <option value="Other">Other</option>
         </select>
 
         <select
@@ -47,9 +49,9 @@ const SearchFilter = ({ onSearch, onFilter }) => {
           className="filter-select"
         >
           <option value="">All Status</option>
-          <option value="pending">Pending</option>
-          <option value="resolved">Resolved</option>
-          <option value="inprogress">In Progress</option>
+          <option value="Pending">Pending</option>
+          <option value="Resolved">Resolved</option>
+          <option value="In Progress">In Progress</option>
         </select>
       </div>
     </div>

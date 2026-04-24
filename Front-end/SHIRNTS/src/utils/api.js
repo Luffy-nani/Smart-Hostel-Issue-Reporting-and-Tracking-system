@@ -80,11 +80,20 @@ export const complaintAPI = {
   getMyComplaints: async (params = {}) => {
     const queryString = new URLSearchParams(params).toString();
     const response = await fetch(
-      `${API_BASE_URL}/mycomplaints/mycomplaints?${queryString}`,
+      `${API_BASE_URL}/mycomplaints?${queryString}`,
       {
         headers: getHeaders()
       }
     );
+    return response.json();
+  },
+
+  createComplaint: async (data) => {
+    const response = await fetch(`${API_BASE_URL}/mycomplaints`, {
+      method: "POST",
+      headers: getHeaders(),
+      body: JSON.stringify(data)
+    });
     return response.json();
   }
 };

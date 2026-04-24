@@ -1,5 +1,5 @@
-
 import "./Issues.css";  
+
 const IssueCard = ({ issue }) => {
   if (!issue) return null;
 
@@ -7,7 +7,7 @@ const IssueCard = ({ issue }) => {
     title = "No title",
     category = "Unknown",
     priority = "Low",
-    room = "N/A",
+    location = "N/A",  // ← changed from room
     images = []
   } = issue;
 
@@ -21,7 +21,7 @@ const IssueCard = ({ issue }) => {
       </div>
 
       <p className="issue-meta">
-        {category} • Room {room}
+        {category} • {location}  {/* ← removed "Room" prefix */}
       </p>
 
       {images.length > 0 && (
