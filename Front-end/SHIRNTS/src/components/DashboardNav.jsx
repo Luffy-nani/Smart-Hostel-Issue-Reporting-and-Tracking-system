@@ -1,6 +1,5 @@
 import "./DashboardNav.css";
 import { useNavigate } from "react-router-dom";
-
 import { logout } from "../utils/api";
 
 export default function Navbar() {

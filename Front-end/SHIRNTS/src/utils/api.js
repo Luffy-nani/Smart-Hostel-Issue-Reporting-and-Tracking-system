@@ -1,21 +1,22 @@
 // src/utils/api.js
 const API_BASE_URL = "http://localhost:3000/api";
 
-// Helper function to get token
 const getToken = () => localStorage.getItem("token");
 
-// Helper function to get headers
 const getHeaders = () => {
-  const headers = {
-    "Content-Type": "application/json"
-  };
-
+  const headers = { "Content-Type": "application/json" };
   const token = getToken();
-  if (token) {
-    headers.Authorization = `Bearer ${token}`;
-  }
-
+  if (token) headers.Authorization = `Bearer ${token}`;
   return headers;
+};
+
+// ✅ Centralized response handler
+const handleResponse = async (response) => {
+  if (!response.ok) {
+    const error = await response.json().catch(() => ({ message: "Unknown error" }));
+    throw new Error(error.message || `HTTP ${response.status}`);
+  }
+  return response.json();
 };
 
 // Auth APIs
@@ -26,7 +27,7 @@ export const authAPI = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
-    return response.json();
+    return handleResponse(response);
   },
 
   login: async (data) => {
@@ -35,7 +36,7 @@ export const authAPI = {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data)
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -45,7 +46,7 @@ export const announcementAPI = {
     const response = await fetch(`${API_BASE_URL}/announcements`, {
       headers: getHeaders()
     });
-    return response.json();
+    return handleResponse(response);
   },
 
   create: async (data) => {
@@ -54,7 +55,7 @@ export const announcementAPI = {
       headers: getHeaders(),
       body: JSON.stringify(data)
     });
-    return response.json();
+    return handleResponse(response);
   },
 
   update: async (id, data) => {
@@ -63,7 +64,7 @@ export const announcementAPI = {
       headers: getHeaders(),
       body: JSON.stringify(data)
     });
-    return response.json();
+    return handleResponse(response);
   },
 
   delete: async (id) => {
@@ -71,7 +72,7 @@ export const announcementAPI = {
       method: "DELETE",
       headers: getHeaders()
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -79,13 +80,10 @@ export const announcementAPI = {
 export const complaintAPI = {
   getMyComplaints: async (params = {}) => {
     const queryString = new URLSearchParams(params).toString();
-    const response = await fetch(
-      `${API_BASE_URL}/mycomplaints?${queryString}`,
-      {
-        headers: getHeaders()
-      }
-    );
-    return response.json();
+    const response = await fetch(`${API_BASE_URL}/mycomplaints?${queryString}`, {
+      headers: getHeaders()
+    });
+    return handleResponse(response);
   },
 
   createComplaint: async (data) => {
@@ -94,7 +92,7 @@ export const complaintAPI = {
       headers: getHeaders(),
       body: JSON.stringify(data)
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -104,7 +102,7 @@ export const dashboardAPI = {
     const response = await fetch(`${API_BASE_URL}/dashboard/complaints`, {
       headers: getHeaders()
     });
-    return response.json();
+    return handleResponse(response);
   }
 };
 
@@ -115,13 +113,18 @@ export const logout = () => {
   window.location.href = "/login";
 };
 
-// Get current user
-export const getCurrentUser = () => {
-  const userStr = localStorage.getItem("user");
-  return userStr ? JSON.parse(userStr) : null;
+// ✅ Renamed + safe JSON.parse
+export const getUser = () => {
+  try {
+    const userStr = localStorage.getItem("user");
+    return userStr ? JSON.parse(userStr) : null;
+  } catch {
+    localStorage.removeItem("user");
+    return null;
+  }
 };
 
-// Check if user is authenticated
-export const isAuthenticated = () => {
-  return !!getToken();
-};
+// Keep getCurrentUser as alias for backward compatibility
+export const getCurrentUser = getUser;
+
+export const isAuthenticated = () => !!getToken();

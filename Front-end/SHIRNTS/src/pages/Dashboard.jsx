@@ -1,13 +1,25 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import DashboardNav from "../components/DashboardNav";
+import DashboardNavAdmin from "../components/DashboardNav-admin";
 import SearchFilter from "../components/SearchFilter";
 import IssueGrid from "../components/IssueGrid";
-import { dashboardAPI } from "../utils/api";
+import { dashboardAPI, getUser } from "../utils/api";
 
 const Dashboard = () => {
+  const navigate = useNavigate();
+
   const [complaints, setComplaints] = useState([]);
   const [filtered, setFiltered] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [search, setSearch] = useState("");
+  const [filterVal, setFilterVal] = useState({ type: "", status: "" });
+
+  const user = getUser();
+
+  useEffect(() => {
+    if (!user) navigate("/login");
+  }, [user, navigate]);
 
   useEffect(() => {
     const fetchComplaints = async () => {
@@ -23,18 +35,6 @@ const Dashboard = () => {
     };
     fetchComplaints();
   }, []);
-
-  const handleSearch = (term) => {
-    apply(term, null);
-  };
-
-  const handleFilter = ({ type, status }) => {
-    apply(null, { type, status });
-  };
-
-  // keep latest search+filter in refs to combine them
-  const [search, setSearch] = useState("");
-  const [filterVal, setFilterVal] = useState({ type: "", status: "" });
 
   const apply = (newSearch, newFilter) => {
     const s = newSearch !== null ? newSearch : search;
@@ -64,11 +64,15 @@ const Dashboard = () => {
     setFiltered(result);
   };
 
+  const handleSearch = (term) => apply(term, null);
+  const handleFilter = ({ type, status }) => apply(null, { type, status });
+
+  if (!user) return null;
   if (loading) return <p>Loading complaints...</p>;
 
   return (
     <>
-      <DashboardNav />
+      {user.role === "admin" ? <DashboardNavAdmin /> : <DashboardNav />}
       <SearchFilter onSearch={handleSearch} onFilter={handleFilter} />
       <IssueGrid complaints={filtered} />
     </>
