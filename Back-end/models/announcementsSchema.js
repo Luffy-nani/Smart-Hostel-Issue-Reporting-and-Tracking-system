@@ -14,14 +14,14 @@ const announcementSchema = new mongoose.Schema(
 
     category: {
       type: String,
-      enum: ["MAINTENANCE", "INTERNET", "GENERAL"],
+      enum: ["Maintenance", "Water", "Electricity", "Internet", "Security", "Cleaning", "Event", "Other"],
       required: true
     },
 
     priority: {
       type: String,
-      enum: ["low", "medium", "high"],
-      default: "low"
+      enum: ["Low", "Medium", "High"],
+      default: "Low"
     },
 
     target: {

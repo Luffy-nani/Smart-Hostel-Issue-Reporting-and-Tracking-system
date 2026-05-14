@@ -113,7 +113,6 @@ export const logout = () => {
   window.location.href = "/login";
 };
 
-// ✅ Renamed + safe JSON.parse
 export const getUser = () => {
   try {
     const userStr = localStorage.getItem("user");
@@ -127,4 +126,4 @@ export const getUser = () => {
 // Keep getCurrentUser as alias for backward compatibility
 export const getCurrentUser = getUser;
 
-export const isAuthenticated = () => !!getToken();
+export const isAuthenticated = () => !!getToken();  
