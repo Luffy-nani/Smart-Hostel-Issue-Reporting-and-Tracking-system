@@ -1,6 +1,8 @@
 import "./DashboardNav.css";
 import { useNavigate } from "react-router-dom";
 
+import { logout } from "../utils/api";
+
 export default function Navbar() {
 
   const navigate=useNavigate();
@@ -21,7 +23,9 @@ export default function Navbar() {
 
         <div className="profile-dropdown">
           <button className="profile-btn">Settings</button>
-          <button className="profile-btn logout">Logout</button>
+          <button className="profile-btn logout" onClick={logout}>
+            Logout
+          </button>
         </div>
       </div>
     </nav>
