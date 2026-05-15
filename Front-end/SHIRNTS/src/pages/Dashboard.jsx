@@ -74,7 +74,7 @@ const Dashboard = () => {
     <>
       {user.role === "admin" ? <DashboardNavAdmin /> : <DashboardNav />}
       <SearchFilter onSearch={handleSearch} onFilter={handleFilter} />
-      <IssueGrid complaints={filtered} />
+      <IssueGrid complaints={filtered} setComplaints={setFiltered} />
     </>
   );
 };

@@ -1,3 +1,4 @@
+
 // src/utils/api.js
 const API_BASE_URL = "http://localhost:3000/api";
 
@@ -100,6 +101,14 @@ export const complaintAPI = {
 export const dashboardAPI = {
   getAllComplaints: async () => {
     const response = await fetch(`${API_BASE_URL}/dashboard/complaints`, {
+      headers: getHeaders()
+    });
+    return handleResponse(response);
+  },
+
+  resolveComplaint: async (id) => {
+    const response = await fetch(`${API_BASE_URL}/dashboard/complaints/${id}`, {
+      method: "DELETE",
       headers: getHeaders()
     });
     return handleResponse(response);
