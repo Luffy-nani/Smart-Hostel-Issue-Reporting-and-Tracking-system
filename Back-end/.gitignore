@@ -1,4 +1,42 @@
+# dependencies
+node_modules/
+
+# env secrets
 .env
-node_modules
-dist
-dist-ssr
+.env.local
+
+# build output
+dist/
+build/
+out/
+
+# logs
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# editor settings
+.vscode/
+.idea/
+
+# cache
+.cache/
+.parcel-cache/
+
+# python
+__pycache__/
+*.pyc
+venv/
+
+# java
+target/
+
+# go
+bin/
+
+# compiled binaries
+*.exe
+*.dll
+*.so
