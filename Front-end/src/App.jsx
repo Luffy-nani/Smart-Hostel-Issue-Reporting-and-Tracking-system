@@ -7,6 +7,7 @@ import RaiseComplaint from "./pages/RaiseComplaint";
 import UserComplaints from "./pages/UserComplaints";
 import Announcements from "./components/Announcements";
 import MakeAnnouncement from "./pages/MakeAnnouncement";
+import DashboardAnalysis from "./pages/DashboardAnalysis";
 import { Routes, Route } from "react-router-dom";
 
 function App() {
@@ -25,6 +26,7 @@ function App() {
       <Route path="/dashboard/admin-announcements" element={<Announcements />} />
 
       <Route path="/dashboard/make-announcement" element={<MakeAnnouncement />} />
+      <Route path="/dashboard/analysis" element={<DashboardAnalysis />} />
     </Routes>
   );
 }
