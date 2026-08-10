@@ -12,6 +12,7 @@ export default function Navbar() {
       </div>
 
       <ul className="navbar-menu">
+        <li onClick={()=>navigate("/dashboard/analysis")}>Dashboard Analysis</li>
         <li onClick={()=>navigate("/dashboard/make-announcement")}>Make Announcement</li>
         <li onClick={()=>navigate("/dashboard/announcements")}>Announcements</li>
       </ul>
